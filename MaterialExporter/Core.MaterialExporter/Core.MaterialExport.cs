@@ -598,6 +598,7 @@ namespace KK_Plugins
                 if(Directory.Exists(ExportPath + "\\Materials\\" + CharacterName))
                 {
                     FinalExportPath = getNextFileName(ExportPath + "\\Materials\\" + CharacterName);
+                    Directory.CreateDirectory(FinalExportPath);
 
                 }
                 if (!Directory.Exists(ExportPath + "\\Materials\\" + CharacterName))
@@ -625,19 +626,24 @@ namespace KK_Plugins
 
                               
                                 string MatName = MM.name;
+                                string ShaderName = MM.shader.name;
                                 foreach (char c in invalid)
                                 {
                                     MatName = MatName.Replace(c.ToString(), "");
+                                    ShaderName = ShaderName.Replace(c.ToString(), "_");
                                 }
+
+                                MatName = MatName.Replace(" Instance", "") + $"({ShaderName})";
+
                                 
 
 
                                 
 
-                                if (Rend.name == "cf_Ohitomi_L") MatName = "EyeWhite_Left";
-                                else if (Rend.name == "cf_Ohitomi_R") MatName = "EyeWhite_Right";
-                                else if (Rend.name == "cf_Ohitomi_L02") MatName = "Eye_Left";
-                                else if (Rend.name == "cf_Ohitomi_R02") MatName = "Eye_Right";
+                                if (Rend.name == "cf_Ohitomi_L") MatName = $"Left EyeWhite({ShaderName})";
+                                else if (Rend.name == "cf_Ohitomi_R") MatName = $"Right EyeWhite({ShaderName})";
+                                else if (Rend.name == "cf_Ohitomi_L02") MatName = $"Left Eye({ShaderName})";
+                                else if (Rend.name == "cf_Ohitomi_R02") MatName = $"Right Eye({ShaderName})";
                                 
                                 
 
